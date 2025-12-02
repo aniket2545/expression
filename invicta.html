@@ -1,1 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Invicta Fest | Exnovicta</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Forum&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg-main: #05030f;
+      --bg-elevated: #08041b;
+      --white: #ffffff;
+      --white-dim: rgba(255, 255, 255, 0.7);
+
+      --gold-light: #f7d774;
+      --gold: #d4a017;
+      --neon-purple: #a855ff;
+      --neon-blue: #38bdf8;
+      --neon-pink: #fb37ff;
+
+      --font-display: "Forum", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      --font-body: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+
+      --fs-xxs: 1.1rem;
+      --fs-xs: 1.2rem;
+      --fs-sm: 1.4rem;
+      --fs-md: 1.6rem;
+      --fs-lg: 1.9rem;
+      --fs-xl: 2.4rem;
+      --fs-hero: clamp(3.6rem, 3vw + 2.8rem, 5rem);
+
+      --radius-md: 18px;
+      --radius-lg: 26px;
+      --radius-pill: 999px;
+      --transition-fast: 0.22s ease;
+      --transition-med: 0.32s ease;
+    }
+
+    * ,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 10px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--fs-md);
+      background: radial-gradient(circle at top, #1d0b4a, #05030f 60%);
+      color: var(--white-dim);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    img,
+    video {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      outline: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1100px;
+      padding-inline: 1.6rem;
+      margin-inline: auto;
+    }
+
+    .section {
+      padding-block: 5.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.8rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      font-size: var(--fs-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      background: linear-gradient(
+        120deg,
+        var(--gold-light),
+        var(--neon-pink),
+        var(--neon-purple)
+      );
+      -webkit-background-clip: text;
+      color: transparent;
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-text {
+      font-size: var(--fs-sm);
+      color: var(--white-dim);
+      max-width: 620px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 2.2rem;
+      border-radius: var(--radius-pill);
+      font-size: var(--fs-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      transition: all var(--transition-fast);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top, var(--gold-light), var(--gold));
+      color: #1e1b4b;
+      box-shadow: 0 0 25px rgba(250, 204, 21, 0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 0 40px rgba(250, 204, 21, 0.9);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--white-dim);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold-light);
+    }
+
+    /* HEADER */
+    .header {
+      position: fixed;
+      inset-inline: 0;
+      top: 0;
+      z-index: 40;
+      padding-block: 1.4rem;
+      background: radial-gradient(circle at top, #020617f2, #020617f5);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.4rem;
+    }
+
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 2px solid rgba(250, 250, 250, 0.2);
+      display: grid;
+      place-content: center;
+      background: radial-gradient(circle at top, #4c1d95, #020617);
+      box-shadow: 0 0 12px rgba(168, 85, 255, 0.6);
+    }
+
+    .logo-mark span {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      font-family: var(--font-display);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .logo-sub {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--white-dim);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: var(--fs-xxs);
+    }
+
+    @media (max-width: 600px) {
+      .header-actions {
+        display: none;
+      }
+    }
+
+    /* HERO */
+    .hero {
+      padding-top: 9rem;
+      padding-bottom: 5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-hero);
+      line-height: 1.05;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(
+        120deg,
+        var(--neon-pink),
+        var(--gold-light),
+        var(--neon-purple)
+      );
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-tag {
+      font-size: var(--fs-xxs);
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(248, 250, 252, 0.25);
+      padding: 0.5rem 1.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+      background: rgba(2, 6, 23, 0.9);
+    }
+
+    .hero-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, var(--neon-pink), #fb7185);
+      box-shadow: 0 0 12px rgba(251, 113, 133, 0.9);
+    }
+
+    .hero-lead {
+      font-size: var(--fs-md);
+      color: var(--white-dim);
+      max-width: 45rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 1.2rem;
+      font-size: var(--fs-sm);
+    }
+
+    .meta-card {
+      padding: 1.4rem 1.6rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.96),
+        rgba(190, 24, 93, 0.98)
+      );
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .meta-label {
+      font-size: var(--fs-xxs);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(226, 232, 240, 0.85);
+      margin-bottom: 0.3rem;
+    }
+
+    .meta-value {
+      font-size: var(--fs-lg);
+      color: var(--neon-pink);
+    }
+
+    @media (min-width: 800px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+      }
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      gap: 2.4rem;
+      margin-top: 2rem;
+      font-size: var(--fs-sm);
+      color: var(--white-dim);
+    }
+
+    @media (min-width: 800px) {
+      .about-grid {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      }
+    }
+
+    .about-card {
+      padding: 2rem 2.2rem;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top, #020617, #020617ee);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .about-card h3 {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      color: var(--neon-pink);
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .about-card ul {
+      margin-top: 0.8rem;
+      padding-left: 1.2rem;
+      font-size: var(--fs-sm);
+    }
+
+    .about-card li {
+      margin-bottom: 0.4rem;
+      list-style: disc;
+    }
+
+    /* GALLERY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: #020617;
+      cursor: pointer;
+      transform-origin: center;
+      transition:
+        transform var(--transition-med),
+        box-shadow var(--transition-med),
+        border-color var(--transition-med),
+        filter var(--transition-med);
+    }
+
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-item::after {
+      content: "View";
+      position: absolute;
+      inset: auto 1.1rem 1.1rem auto;
+      padding: 0.3rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: var(--fs-xxs);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(250, 250, 250, 0.3);
+      color: rgba(248, 250, 252, 0.85);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity var(--transition-med), transform var(--transition-med);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 32px rgba(251, 113, 133, 0.65);
+      filter: saturate(1.1);
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #1e1b4bcc, #020617f5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      z-index: 60;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 960px;
+      width: 100%;
+      max-height: 80vh;
+      background: #020617;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(248, 250, 252, 0.3);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-media {
+      width: 100%;
+      height: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.4rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.6);
+      display: grid;
+      place-content: center;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--white);
+      font-size: 1.6rem;
+      z-index: 2;
+    }
+
+    #lightboxDownload {
+      position: absolute;
+      left: 1.4rem;
+      bottom: 1.4rem;
+      font-size: var(--fs-xxs);
+      padding: 0.7rem 1.6rem;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding-block: 3.5rem 2.4rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, #020617, #020617);
+      margin-top: 3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      text-align: center;
+      font-size: var(--fs-xs);
+      color: rgba(148, 163, 184, 0.95);
+    }
+
+    .footer-inner span {
+      color: var(--neon-pink);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html#home" class="logo-wrap">
+        <div class="logo-mark"><span>E</span></div>
+        <div class="logo-text">
+          <div class="logo-title">EXNOVICTA</div>
+          <div class="logo-sub">Expression • Novatos • Invicta</div>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <a href="index.html#invicta" class="btn-ghost">Back to Main</a>
+        <a href="#main-gallery" class="btn-primary">View Gallery</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-tag">
+            <div class="hero-dot"></div>
+            <span>Invicta • Sports &amp; Esports Fest</span>
+          </div>
+          <h1 class="hero-title">
+            Welcome to <span>Invicta</span>
+          </h1>
+          <p class="hero-lead">
+            Invicta is the arena of champions — where sweat, focus, and team spirit
+            collide on the ground and on the screen.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#about" class="btn btn-primary">About the Fest</a>
+            <a href="#athletes" class="btn btn-ghost">Athlete Gallery</a>
+          </div>
+        </div>
+
+        <div class="hero-meta">
+          <div class="meta-card">
+            <p class="meta-label">Vibe</p>
+            <p class="meta-value">Play. Fight. Conquer.</p>
+            <p style="font-size: var(--fs-xs); margin-top: 0.4rem;">
+              From football and basketball to esports tournaments, Invicta celebrates every warrior.
+            </p>
+          </div>
+          <div class="meta-card">
+            <p class="meta-label">Highlights</p>
+            <p style="font-size: var(--fs-sm);">
+              Outdoor Sports • House vs House • Esports • Strength Games
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT FEST -->
+    <section class="section" id="about">
+      <div class="container">
+        <p class="section-subtitle">About the Fest</p>
+        <h2 class="section-title">Invicta – In Detail</h2>
+        <p class="section-text">
+          Invicta is the battleground of Exnovicta. It’s where adrenaline replaces fear,
+          and teams leave everything on the field — and the scoreboard.
+        </p>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>What Happens Here</h3>
+            <p>
+              Across multiple days, Invicta turns campus into a full-blown arena:
+            </p>
+            <ul>
+              <li>Football, basketball, volleyball &amp; athletics</li>
+              <li>Cricket, tug of war, relay races &amp; fun strength events</li>
+              <li>Esports tournaments (BGMI, FIFA, Valorant – as per campus)</li>
+              <li>Cheering squads, mascots &amp; house rivalries</li>
+              <li>Closing ceremony with awards &amp; trophies</li>
+            </ul>
+          </div>
+
+          <div class="about-card">
+            <h3>Why It Matters</h3>
+            <p>
+              Invicta is more than matches and medals — it builds discipline,
+              leadership, and team spirit that last beyond college.
+            </p>
+            <p style="margin-top: 1rem;">
+              Slogan: <strong>“Rise. Fight. Conquer. Invicta celebrates the warrior in you.”</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATHLETE / TEAM GALLERY -->
+    <section class="section" id="athletes">
+      <div class="container">
+        <p class="section-subtitle">Teams &amp; Players</p>
+        <h2 class="section-title">Athlete Gallery</h2>
+        <p class="section-text">
+          Squads, captains, clutch moments, and victory shots — a dedicated wall
+          for the athletes of Invicta.
+        </p>
+
+        <div class="gallery-grid">
+          <!-- Replace with real paths -->
+          <div class="gallery-item" data-type="image" data-src="images/invicta/athlete1.jpg">
+            <img src="images/invicta/athlete1.jpg" alt="Team huddle" />
+          </div>
+          <div class="gallery-item" data-type="image" data-src="images/invicta/athlete2.jpg">
+            <img src="images/invicta/athlete2.jpg" alt="Football action" />
+          </div>
+          <div class="gallery-item" data-type="image" data-src="images/invicta/athlete3.jpg">
+            <img src="images/invicta/athlete3.jpg" alt="Esports team" />
+          </div>
+          <div class="gallery-item" data-type="image" data-src="images/invicta/athlete4.jpg">
+            <img src="images/invicta/athlete4.jpg" alt="Trophy celebration" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN FEST GALLERY -->
+    <section class="section" id="main-gallery">
+      <div class="container">
+        <p class="section-subtitle">Game On</p>
+        <h2 class="section-title">Invicta – Main Gallery</h2>
+        <p class="section-text">
+          The central gallery for Invicta. Add 300+ action shots, slow-mo replays,
+          and match highlights — the grid will keep expanding forever.
+        </p>
+
+        <div class="gallery-grid">
+          <!-- Image items -->
+          <div class="gallery-item" data-type="image" data-src="images/invicta/fest1.jpg">
+            <img src="images/invicta/fest1.jpg" alt="Invicta match 1" />
+          </div>
+          <div class="gallery-item" data-type="image" data-src="images/invicta/fest2.jpg">
+            <img src="images/invicta/fest2.jpg" alt="Invicta match 2" />
+          </div>
+          <div class="gallery-item" data-type="image" data-src="images/invicta/fest3.jpg">
+            <img src="images/invicta/fest3.jpg" alt="Cheering crowd" />
+          </div>
+
+          <!-- Video item -->
+          <div class="gallery-item" data-type="video" data-src="assets/video/invicta-after.mp4">
+            <img src="images/invicta/after-thumb.jpg" alt="Invicta aftermovie" />
+          </div>
+
+          <!-- Duplicate with more src values to grow up to 300+ items -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+        ✕
+      </button>
+      <img
+        src=""
+        alt="Lightbox media"
+        class="lightbox-media"
+        id="lightboxImage"
+      />
+      <video
+        src=""
+        controls
+        class="lightbox-media"
+        id="lightboxVideo"
+      ></video>
+      <a href="#" id="lightboxDownload" class="btn btn-primary" download>
+        Download
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>
+        © <span>Exnovicta – Invicta</span>. Part of the Exnovicta Fest Universe.
+      </p>
+      <p><a href="index.html#home">← Back to Exnovicta Main Site</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // LIGHTBOX LOGIC
+    const lightbox = document.getElementById("lightbox");
+    const lightboxClose = document.getElementById("lightboxClose");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxVideo = document.getElementById("lightboxVideo");
+    const lightboxDownload = document.getElementById("lightboxDownload");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    function openLightboxWithImage(src) {
+      lightboxImage.src = src;
+      lightboxImage.style.display = "block";
+      lightboxVideo.style.display = "none";
+
+      lightboxDownload.href = src;
+      lightboxDownload.download = src.split("/").pop() || "image";
+
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function openLightboxWithVideo(src) {
+      lightboxVideo.src = src;
+      lightboxVideo.style.display = "block";
+      lightboxImage.style.display = "none";
+
+      lightboxDownload.href = src;
+      lightboxDownload.download = src.split("/").pop() || "video";
+
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+      lightboxVideo.play().catch(() => {});
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightboxVideo.pause();
+      document.body.style.overflow = "";
+    }
+
+    galleryItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const type = item.dataset.type;
+        const src = item.dataset.src;
+        if (!src) return;
+
+        if (type === "video") {
+          openLightboxWithVideo(src);
+        } else {
+          openLightboxWithImage(src);
+        }
+      });
+    });
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener("click", closeLightbox);
+    }
+
+    if (lightbox) {
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("open")) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
 
