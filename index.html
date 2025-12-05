@@ -30,12 +30,7 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 
   <style>
-    /*-----------------------------------*\
-      # THEME & RESET
-    \*-----------------------------------*/
-
     :root {
-      /* Base colors */
       --bg-main: #05030f;
       --bg-elevated: #08041b;
       --bg-soft: #13072e;
@@ -43,7 +38,6 @@
       --white: #ffffff;
       --white-dim: rgba(255, 255, 255, 0.7);
 
-      /* Party + gold palette */
       --gold-light: #f7d774;
       --gold: #d4a017;
       --gold-dark: #8d700e;
@@ -53,7 +47,6 @@
 
       --border-soft: rgba(255, 255, 255, 0.08);
 
-      /* Gradients */
       --gradient-hero: radial-gradient(circle at top, #a855ff44, #05030f 55%);
       --gradient-card: linear-gradient(
         135deg,
@@ -62,7 +55,6 @@
       );
       --gradient-gold: linear-gradient(120deg, var(--gold-light), var(--gold));
 
-      /* Typography */
       --font-display: "Forum", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
       --font-body: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
@@ -108,23 +100,10 @@
       background:
         radial-gradient(circle at 10% 0%, #1d0b4a, #05030f 55%),
         radial-gradient(circle at 90% 100%, #0b1120, #020617 70%);
-      background-size: 200% 200%;
-      animation: bg-pan 18s ease-in-out infinite alternate;
+      /* background animation removed */
       color: var(--white-dim);
       min-height: 100vh;
       overflow-x: hidden;
-    }
-
-    @keyframes bg-pan {
-      0% {
-        background-position: 0% 0%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 100%;
-      }
     }
 
     img {
@@ -218,9 +197,7 @@
       font-size: var(--fs-sm);
     }
 
-    /*-----------------------------------*\
-      # PRELOADER
-    \*-----------------------------------*/
+    /* PRELOADER */
 
     .preload {
       position: fixed;
@@ -271,9 +248,7 @@
       }
     }
 
-    /*-----------------------------------*\
-      # HEADER / NAV
-    \*-----------------------------------*/
+    /* HEADER / NAV */
 
     .header {
       position: fixed;
@@ -393,8 +368,6 @@
       width: 100%;
     }
 
-    /* we removed nav-cta (address badge) */
-
     .badge-pill {
       font-size: var(--fs-xxs);
       padding: 0.3rem 1rem;
@@ -414,6 +387,7 @@
       place-content: center;
       background: radial-gradient(circle at top, #4c1d95, #020617);
       gap: 4px;
+      transition: transform var(--transition-fast);
     }
 
     .hamburger-line {
@@ -447,7 +421,7 @@
       transform: translateY(-100%);
     }
 
-    /* Sidebar nav for mobile */
+    /* SIDEBAR NAV */
 
     .sidebar {
       position: fixed;
@@ -483,6 +457,7 @@
       display: grid;
       place-content: center;
       color: var(--white);
+      background: rgba(15, 23, 42, 0.9);
     }
 
     .sidebar-nav {
@@ -544,9 +519,7 @@
       pointer-events: all;
     }
 
-    /*-----------------------------------*\
-      # HERO SECTION (VIDEO)
-    \*-----------------------------------*/
+    /* HERO */
 
     .hero {
       position: relative;
@@ -794,28 +767,11 @@
       transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px) scale(1.03) rotate(-0.7deg);
-      box-shadow: 0 0 50px rgba(250, 204, 21, 0.9);
-      filter: saturate(1.2);
-    }
-
-    .btn-primary:hover::after {
-      opacity: 1;
-      transform: translateX(30%);
-    }
-
     .btn-ghost {
       border: 1px solid rgba(148, 163, 184, 0.9);
       background: rgba(15, 23, 42, 0.8);
       color: var(--white-dim);
       backdrop-filter: blur(16px);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--gold-light);
-      background: radial-gradient(circle at top, #020617, #0b1120);
-      transform: translateY(-2px) scale(1.02) rotate(0.7deg);
     }
 
     .hero-fest-strip {
@@ -861,25 +817,6 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 0 28px rgba(15, 23, 42, 0.8);
-      transform: perspective(800px) rotateX(6deg) rotateY(-6deg);
-      animation: card-drop 0.9s ease-out forwards;
-    }
-
-    .hero-meta-card:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    @keyframes card-drop {
-      0% {
-        opacity: 0;
-        transform: perspective(800px) translateY(40px) rotateX(12deg)
-          rotateY(-12deg) scale(0.96);
-      }
-      100% {
-        opacity: 1;
-        transform: perspective(800px) translateY(0) rotateX(6deg) rotateY(-6deg)
-          scale(1);
-      }
     }
 
     .hero-meta-card::before {
@@ -896,12 +833,6 @@
     .hero-meta-card-inner {
       position: relative;
       z-index: 1;
-    }
-
-    .hero-meta-card:hover {
-      transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-4px)
-        scale(1.02);
-      box-shadow: 0 0 40px rgba(129, 140, 248, 0.9);
     }
 
     .meta-label {
@@ -953,9 +884,7 @@
       color: var(--gold-light);
     }
 
-    /*-----------------------------------*\
-      # SCROLL REVEAL
-    \*-----------------------------------*/
+    /* SCROLL REVEAL */
 
     [data-reveal] {
       opacity: 0;
@@ -979,9 +908,7 @@
       transform: translateX(0) translateY(0) scale(1) rotate(0deg);
     }
 
-    /*-----------------------------------*\
-      # FEST ABOUT SECTIONS
-    \*-----------------------------------*/
+    /* FEST ABOUT SECTIONS */
 
     .fest-grid {
       display: grid;
@@ -996,12 +923,6 @@
       box-shadow: 0 0 28px rgba(15, 23, 42, 0.9);
       position: relative;
       overflow: hidden;
-      transform-origin: center;
-      transition:
-        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.4s ease,
-        border-color 0.3s ease,
-        filter 0.3s ease;
     }
 
     .fest-card::before {
@@ -1021,13 +942,6 @@
       z-index: 1;
     }
 
-    .fest-card:hover {
-      transform: rotate(-1.2deg) translateY(-8px) scale(1.02);
-      box-shadow: 0 24px 80px rgba(24, 24, 27, 0.85);
-      border-color: var(--gold-light);
-      filter: saturate(1.15);
-    }
-
     .fest-label {
       text-transform: uppercase;
       letter-spacing: 0.22em;
@@ -1036,31 +950,24 @@
       margin-bottom: 0.6rem;
     }
 
-    .fest-name-expression {
-      font-size: var(--fs-xl);
-      font-family: var(--font-display);
-      color: var(--gold-light);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 1.4rem;
-    }
-
-    .fest-name-novatos {
-      font-size: var(--fs-xl);
-      font-family: var(--font-display);
-      color: var(--neon-blue);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 1.4rem;
-    }
-
+    .fest-name-expression,
+    .fest-name-novatos,
     .fest-name-invicta {
       font-size: var(--fs-xl);
       font-family: var(--font-display);
-      color: var(--neon-pink);
       text-transform: uppercase;
       letter-spacing: 0.16em;
       margin-bottom: 1.4rem;
+    }
+
+    .fest-name-expression {
+      color: var(--gold-light);
+    }
+    .fest-name-novatos {
+      color: var(--neon-blue);
+    }
+    .fest-name-invicta {
+      color: var(--neon-pink);
     }
 
     .fest-body {
@@ -1100,9 +1007,7 @@
       font-size: var(--fs-xs);
     }
 
-    /*-----------------------------------*\
-      # BANDS & DJS
-    \*-----------------------------------*/
+    /* BANDS & DJS */
 
     .bands-grid {
       display: grid;
@@ -1129,10 +1034,6 @@
       align-items: center;
       gap: 0.7rem;
       transform-origin: center;
-      transition:
-        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
     }
 
     .artist-pill span {
@@ -1144,20 +1045,12 @@
       box-shadow: 0 0 16px rgba(250, 204, 21, 0.95);
     }
 
-    .artist-pill:hover {
-      transform: translateY(-4px) rotate(-3deg) scale(1.05);
-      border-color: var(--gold-light);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
-    }
-
     .bands-note {
       font-size: var(--fs-xs);
       color: rgba(226, 232, 240, 0.75);
     }
 
-    /*-----------------------------------*\
-      # GALLERY – CARDS PER FEST
-    \*-----------------------------------*/
+    /* GALLERY – CARDS PER FEST */
 
     .gallery-section {
       position: relative;
@@ -1178,19 +1071,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition:
-        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.35s ease,
-        border-color 0.3s ease,
-        filter 0.3s ease;
       position: relative;
-    }
-
-    .gallery-card:hover {
-      transform: translateY(-10px) rotate(-1deg) scale(1.02);
-      box-shadow: 0 32px 90px rgba(15, 23, 42, 1);
-      border-color: var(--gold-light);
-      filter: saturate(1.1);
     }
 
     .gallery-card-thumb {
@@ -1206,10 +1087,6 @@
       display: block;
       transform: scale(1.05);
       transition: transform 0.4s ease;
-    }
-
-    .gallery-card:hover .gallery-card-thumb img {
-      transform: scale(1.1);
     }
 
     .gallery-card-body {
@@ -1287,15 +1164,6 @@
         background 0.25s ease;
     }
 
-    .gallery-card-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.95);
-      border-color: var(--gold-light);
-      background: radial-gradient(circle at top, #020617, #020617);
-    }
-
-    /* Rotating gallery image */
-
     .gallery-rotator {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -1309,9 +1177,7 @@
       transform: scale(1.05);
     }
 
-    /*-----------------------------------*\
-      # ALL FEST MEDIA (GRID)
-    \*-----------------------------------*/
+    /* ALL FEST MEDIA (GRID) */
 
     .gallery-subnav {
       display: flex;
@@ -1389,22 +1255,6 @@
       transition: opacity var(--transition-med), transform var(--transition-med);
     }
 
-    .gallery-item:hover {
-      transform: translateY(-6px) scale(1.03) rotate(-1.5deg);
-      border-color: var(--gold-light);
-      box-shadow: 0 0 32px rgba(250, 204, 21, 0.65);
-      filter: saturate(1.2);
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.08);
-    }
-
-    .gallery-item:hover::after {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     .lightbox {
       position: fixed;
       inset: 0;
@@ -1455,9 +1305,7 @@
       font-size: 1.6rem;
     }
 
-    /*-----------------------------------*\
-      # SPONSORS
-    \*-----------------------------------*/
+    /* SPONSORS */
 
     .sponsor-strip {
       display: grid;
@@ -1471,16 +1319,6 @@
       background: radial-gradient(circle at top, #020617, #020617ee);
       overflow-x: auto;
       scrollbar-width: none;
-      animation: marquee-pulse 10s linear infinite alternate;
-    }
-
-    @keyframes marquee-pulse {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-10px);
-      }
     }
 
     .sponsor-strip::-webkit-scrollbar {
@@ -1500,9 +1338,7 @@
       color: var(--gold-light);
     }
 
-    /*-----------------------------------*\
-      # CONTACT
-    \*-----------------------------------*/
+    /* CONTACT */
 
     .contact-grid {
       display: grid;
@@ -1519,12 +1355,6 @@
         transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
         box-shadow 0.35s ease,
         border-color 0.3s ease;
-    }
-
-    .contact-card:hover {
-      transform: translateY(-6px) rotate(0.8deg) scale(1.02);
-      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.95);
-      border-color: var(--gold-light);
     }
 
     .contact-line {
@@ -1602,9 +1432,7 @@
       resize: vertical;
     }
 
-    /*-----------------------------------*\
-      # FOOTER
-    \*-----------------------------------*/
+    /* FOOTER */
 
     .footer {
       padding-block: 3.8rem 2.4rem;
@@ -1627,9 +1455,76 @@
       color: var(--gold-light);
     }
 
-    /*-----------------------------------*\
-      # RESPONSIVE
-    \*-----------------------------------*/
+    /* ✅ GLOBAL ZOOM ON HOVER FOR CARDS & BUTTONS */
+
+    button,
+    .btn-primary,
+    .btn-ghost,
+    .gallery-card-btn,
+    .gallery-tab,
+    .fest-card,
+    .gallery-card,
+    .gallery-item,
+    .contact-card,
+    .hero-meta-card,
+    .artist-pill,
+    .hamburger,
+    .sidebar-close,
+    .lightbox-close {
+      transition:
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        filter 0.25s ease;
+    }
+
+    button:hover,
+    .btn-primary:hover,
+    .btn-ghost:hover,
+    .gallery-card-btn:hover,
+    .gallery-tab:hover,
+    .fest-card:hover,
+    .gallery-card:hover,
+    .gallery-item:hover,
+    .contact-card:hover,
+    .hero-meta-card:hover,
+    .artist-pill:hover,
+    .hamburger:hover,
+    .sidebar-close:hover,
+    .lightbox-close:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 32px rgba(15, 23, 42, 0.9);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-card:hover .gallery-card-thumb img {
+      transform: scale(1.08);
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 50px rgba(250, 204, 21, 0.9);
+      filter: saturate(1.2);
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+      transform: translateX(30%);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold-light);
+      background: radial-gradient(circle at top, #020617, #0b1120);
+    }
+
+    /* RESPONSIVE */
 
     @media (min-width: 720px) {
       .hero-grid {
@@ -1655,11 +1550,9 @@
       .nav {
         display: flex;
       }
-
       .hamburger {
         display: none;
       }
-
       .sidebar {
         display: none;
       }
@@ -1729,8 +1622,6 @@
         <a href="#contact" class="nav-link" data-nav-main>Contact</a>
       </nav>
 
-      <!-- nav-cta removed (no address here) -->
-
       <button class="hamburger" id="hamburger" aria-label="Open menu">
         <span class="hamburger-line line-top"></span>
         <span class="hamburger-line line-mid"></span>
@@ -1767,7 +1658,7 @@
 
           <h1 class="hero-title">
             Three Fests.<br />
-            <span class="highlight">One Unforgettable Night.</span>
+            <span class="highlight">Expression &amp; Novatos light up the nights. Invicta owns the day.</span>
           </h1>
 
           <p class="hero-lead">
@@ -1777,9 +1668,8 @@
           </p>
 
           <div class="hero-actions">
-            <a href="#gallery-all" class="btn-primary">
-              Explore Vibes
-              <span>✨</span>
+            <a href="expression.html" class="btn-primary">
+              ✨ View Fests
             </a>
             <a href="#expression" class="btn-ghost">
               View Fest Lineup
@@ -2036,7 +1926,7 @@
       </div>
     </section>
 
-    <!-- FEST GALLERY CARDS (3 CARDS – ONE PER FEST) -->
+    <!-- FEST GALLERY CARDS -->
     <section class="section gallery-section" id="gallery-fests">
       <div class="container">
         <div class="text-center" data-reveal>
@@ -2140,7 +2030,7 @@
       </div>
     </section>
 
-    <!-- ALL FEST MEDIA (PHOTOS + VIDEO) -->
+    <!-- ALL FEST MEDIA -->
     <section class="section gallery-section" id="gallery-all">
       <div class="container">
         <div class="text-center" data-reveal>
@@ -2549,7 +2439,7 @@
     });
 
     // 🔁 GALLERY ROTATOR – every card image changes automatically
-    const rotatorIntervalMs = 4000; // change image every 4 seconds
+    const rotatorIntervalMs = 4000;
 
     const rotators = document.querySelectorAll(".gallery-rotator");
     rotators.forEach((img) => {
