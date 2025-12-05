@@ -726,6 +726,8 @@
       opacity: 0;
     }
 
+    /* BUTTONS */
+
     .btn-primary,
     .btn-ghost {
       position: relative;
@@ -752,6 +754,7 @@
       box-shadow: 0 0 35px rgba(250, 204, 21, 0.6);
     }
 
+    /* FULL SWEEP SHINE ANIMATION */
     .btn-primary::after {
       content: "";
       position: absolute;
@@ -763,8 +766,8 @@
       );
       mix-blend-mode: screen;
       opacity: 0;
-      transform: translateX(-50%);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: translateX(-120%);
+      transition: opacity 0.45s ease, transform 0.45s ease;
     }
 
     .btn-ghost {
@@ -772,6 +775,21 @@
       background: rgba(15, 23, 42, 0.8);
       color: var(--white-dim);
       backdrop-filter: blur(16px);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 50px rgba(250, 204, 21, 0.9);
+      filter: saturate(1.2);
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+      transform: translateX(120%);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold-light);
+      background: radial-gradient(circle at top, #020617, #0b1120);
     }
 
     .hero-fest-strip {
@@ -908,33 +926,51 @@
       transform: translateX(0) translateY(0) scale(1) rotate(0deg);
     }
 
-    /* FEST ABOUT SECTIONS */
+    /* FEST ABOUT SECTIONS – 3 SMALL CARDS IN ONE LINE */
 
     .fest-grid {
-      display: grid;
-      gap: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.4rem;
+      justify-content: center;
+      align-items: stretch;
+      margin-top: 4rem;
     }
 
     .fest-card {
-      padding: 2.4rem 2.2rem;
-      border-radius: var(--radius-lg);
-      background: var(--gradient-card);
-      border: 1px solid rgba(248, 250, 252, 0.14);
-      box-shadow: 0 0 28px rgba(15, 23, 42, 0.9);
       position: relative;
+      flex: 1 1 260px;
+      max-width: 320px;
+      padding: 2rem 1.9rem;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(248, 250, 252, 0.18);
+      box-shadow: 0 0 28px rgba(15, 23, 42, 0.9);
       overflow: hidden;
+
+      transform: scale(0.94);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease,
+        backdrop-filter 0.35s ease,
+        -webkit-backdrop-filter 0.35s ease;
     }
 
     .fest-card::before {
       content: "";
       position: absolute;
-      inset: -40%;
+      inset: -50%;
       background:
         radial-gradient(circle at 0 0, rgba(244, 244, 245, 0.1), transparent 55%),
-        radial-gradient(circle at 100% 0, rgba(239, 68, 68, 0.2), transparent 55%);
-      opacity: 0.65;
-      pointer-events: none;
+        radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.24), transparent 55%);
+      opacity: 0.7;
       mix-blend-mode: screen;
+      pointer-events: none;
     }
 
     .fest-card-inner {
@@ -950,61 +986,70 @@
       margin-bottom: 0.6rem;
     }
 
-    .fest-name-expression,
-    .fest-name-novatos,
-    .fest-name-invicta {
-      font-size: var(--fs-xl);
+    .fest-name {
+      font-size: var(--fs-lg);
       font-family: var(--font-display);
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      margin-bottom: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: var(--white);
     }
 
-    .fest-name-expression {
-      color: var(--gold-light);
-    }
-    .fest-name-novatos {
-      color: var(--neon-blue);
-    }
-    .fest-name-invicta {
-      color: var(--neon-pink);
-    }
-
-    .fest-body {
+    .fest-tagline {
       font-size: var(--fs-sm);
       color: var(--white-dim);
-      line-height: 1.8;
-      margin-bottom: 1.8rem;
+      line-height: 1.7;
+      min-height: 5.5rem;
     }
 
-    .fest-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-bottom: 1.6rem;
+    .fest-card-accent {
+      height: 3px;
+      width: 60px;
+      border-radius: 999px;
+      margin-top: 1.2rem;
+      opacity: 0.8;
     }
 
-    .fest-tag {
-      font-size: var(--fs-xxs);
-      padding: 0.4rem 1.1rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(248, 250, 252, 0.18);
-      background: rgba(15, 23, 42, 0.9);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
+    .fest-expression .fest-card-accent {
+      background: linear-gradient(90deg, var(--gold-light), var(--neon-pink));
+    }
+    .fest-novatos .fest-card-accent {
+      background: linear-gradient(90deg, var(--neon-blue), var(--gold-light));
+    }
+    .fest-invicta .fest-card-accent {
+      background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
     }
 
-    .fest-highlight {
-      font-size: var(--fs-xs);
-      color: rgba(226, 232, 240, 0.9);
+    /* Hover: zoom, blur, glow */
+    .fest-card:hover {
+      transform: scale(1.08);
+      background: rgba(15, 23, 42, 0.95);
+      border-color: rgba(250, 204, 21, 0.75);
+      box-shadow: 0 26px 80px rgba(15, 23, 42, 1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
-    .fest-btn {
-      margin-top: 1.6rem;
+    /* View Fest button – hidden until hover */
+    .fest-card-btn {
+      margin-top: 1.8rem;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       font-size: var(--fs-xs);
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .fest-card:hover .fest-card-btn {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     /* BANDS & DJS */
@@ -1455,14 +1500,14 @@
       color: var(--gold-light);
     }
 
-    /* ✅ GLOBAL ZOOM ON HOVER FOR CARDS & BUTTONS */
+    /* ✅ GLOBAL ZOOM ON HOVER FOR CARDS & BUTTONS
+       (removed .fest-card here so our custom hover works) */
 
     button,
     .btn-primary,
     .btn-ghost,
     .gallery-card-btn,
     .gallery-tab,
-    .fest-card,
     .gallery-card,
     .gallery-item,
     .contact-card,
@@ -1483,7 +1528,6 @@
     .btn-ghost:hover,
     .gallery-card-btn:hover,
     .gallery-tab:hover,
-    .fest-card:hover,
     .gallery-card:hover,
     .gallery-item:hover,
     .contact-card:hover,
@@ -1509,31 +1553,12 @@
       transform: translateY(0);
     }
 
-    .btn-primary:hover {
-      box-shadow: 0 0 50px rgba(250, 204, 21, 0.9);
-      filter: saturate(1.2);
-    }
-
-    .btn-primary:hover::after {
-      opacity: 1;
-      transform: translateX(30%);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--gold-light);
-      background: radial-gradient(circle at top, #020617, #0b1120);
-    }
-
     /* RESPONSIVE */
 
     @media (min-width: 720px) {
       .hero-grid {
         grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
         align-items: center;
-      }
-
-      .fest-grid {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       }
 
       .bands-grid {
@@ -1718,7 +1743,7 @@
       </div>
     </section>
 
-    <!-- EXPRESSION / NOVATOS / INVICTA ABOUT -->
+    <!-- FEST UNIVERSE – SMALL 3 CARDS -->
     <section class="section" id="expression">
       <div class="container">
         <div class="text-center" data-reveal>
@@ -1731,108 +1756,50 @@
           </p>
         </div>
 
-        <div class="fest-grid" style="margin-top: 4rem;">
-          <!-- Expression -->
-          <article class="fest-card" data-reveal="left">
+        <div class="fest-grid">
+          <!-- Expression card -->
+          <article class="fest-card fest-expression" data-reveal="left">
             <div class="fest-card-inner">
               <p class="fest-label">Cultural &amp; Literary Fest</p>
-              <h3 class="fest-name-expression">Expression</h3>
-              <p class="fest-body">
-                Expression is where stories step off the page and onto the
-                stage. It’s a living library of ideas, where slam poetry
-                collides with theatre, open mics flow into live bands, and
-                debates spark late-night friendships.
-                <br /><br />
-                From dramatic stage plays and stand-up comics to author
-                sessions, book clubs, quizzes, and art corners — Expression is
-                a playground for every student who has something to say, draw,
-                write, or perform. It’s not just a fest; it’s the campus’s
-                loudest heartbeat of creativity and emotions.
+              <h3 class="fest-name">Expression</h3>
+              <p class="fest-tagline">
+                Poetry, theatre, music and art — the cultural night that turns MSU into a live stage.
               </p>
+              <div class="fest-card-accent"></div>
 
-              <div class="fest-tags">
-                <span class="fest-tag">Poetry Slams</span>
-                <span class="fest-tag">Stage Plays</span>
-                <span class="fest-tag">Open Mic</span>
-                <span class="fest-tag">Art &amp; Short Films</span>
-              </div>
-
-              <p class="fest-highlight">
-                Slogan: <strong>“Where culture meets creativity, and every
-                  voice becomes art.”</strong>
-              </p>
-
-              <a href="expression.html" class="btn-primary fest-btn">
+              <a href="expression.html" class="btn-primary fest-card-btn">
                 View Fest
               </a>
             </div>
           </article>
 
-          <!-- Novatos -->
-          <article class="fest-card" id="novatos" data-reveal="right">
+          <!-- Novatos card -->
+          <article class="fest-card fest-novatos" id="novatos" data-reveal="up">
             <div class="fest-card-inner">
               <p class="fest-label">Freshers &amp; Talent Fest</p>
-              <h3 class="fest-name-novatos">Novatos</h3>
-              <p class="fest-body">
-                Novatos is all about firsts — your first performance, your
-                first cheer from a roaring crowd, your first “this is my
-                college” moment. Designed especially for freshers, it’s the
-                grand welcome into the MSU family.
-                <br /><br />
-                Walk down the fresher runway, showcase your hidden talents, join
-                team games, vibe to live music, and connect with seniors who
-                were in your place just a year ago. It’s warm, chaotic, and
-                unforgettable — exactly how your college journey should begin.
+              <h3 class="fest-name">Novatos</h3>
+              <p class="fest-tagline">
+                Freshers’ runway, games and talent shows — your first college night you never forget.
               </p>
+              <div class="fest-card-accent"></div>
 
-              <div class="fest-tags">
-                <span class="fest-tag">Mr &amp; Ms Fresher</span>
-                <span class="fest-tag">Talent Hunt</span>
-                <span class="fest-tag">Fun Games</span>
-                <span class="fest-tag">Ice-breaker Events</span>
-              </div>
-
-              <p class="fest-highlight">
-                Slogan: <strong>“Where new journeys begin, and new talents
-                  rise.”</strong>
-              </p>
-
-              <a href="novatos.html" class="btn-primary fest-btn">
+              <a href="novatos.html" class="btn-primary fest-card-btn">
                 View Fest
               </a>
             </div>
           </article>
 
-          <!-- Invicta -->
-          <article class="fest-card" id="invicta" data-reveal="left">
+          <!-- Invicta card -->
+          <article class="fest-card fest-invicta" id="invicta" data-reveal="right">
             <div class="fest-card-inner">
-              <p class="fest-label">Sports &amp; Competitive Fest</p>
-              <h3 class="fest-name-invicta">Invicta</h3>
-              <p class="fest-body">
-                Invicta is the arena where adrenaline replaces fear and
-                sweat replaces hesitation. It’s about competition, grit, and
-                team spirit — both on the field and on the virtual battlefield.
-                <br /><br />
-                From football, basketball, volleyball, and athletics to esports
-                tournaments, tug of war, and strength challenges, Invicta
-                celebrates every warrior who refuses to back down. You don’t
-                just play for trophies here; you play to etch your batch into
-                history.
+              <p class="fest-label">Sports &amp; Esports Fest</p>
+              <h3 class="fest-name">Invicta</h3>
+              <p class="fest-tagline">
+                Daytime adrenaline with sports, house clashes and esports battles across the arena.
               </p>
+              <div class="fest-card-accent"></div>
 
-              <div class="fest-tags">
-                <span class="fest-tag">Sports Arena</span>
-                <span class="fest-tag">Esports Battles</span>
-                <span class="fest-tag">House vs House</span>
-                <span class="fest-tag">Strength &amp; Endurance</span>
-              </div>
-
-              <p class="fest-highlight">
-                Slogan: <strong>“Rise. Fight. Conquer. Invicta celebrates the
-                  warrior in you.”</strong>
-              </p>
-
-              <a href="invicta.html" class="btn-primary fest-btn">
+              <a href="invicta.html" class="btn-primary fest-card-btn">
                 View Fest
               </a>
             </div>
