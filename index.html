@@ -89,7 +89,7 @@
       --transition-slow: 0.45s ease;
     }
 
-    * ,
+    *,
     *::before,
     *::after {
       margin: 0;
@@ -105,10 +105,26 @@
     body {
       font-family: var(--font-body);
       font-size: var(--fs-md);
-      background: radial-gradient(circle at top, #1d0b4a, #05030f 60%);
+      background:
+        radial-gradient(circle at 10% 0%, #1d0b4a, #05030f 55%),
+        radial-gradient(circle at 90% 100%, #0b1120, #020617 70%);
+      background-size: 200% 200%;
+      animation: bg-pan 18s ease-in-out infinite alternate;
       color: var(--white-dim);
       min-height: 100vh;
       overflow-x: hidden;
+    }
+
+    @keyframes bg-pan {
+      0% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 100%;
+      }
     }
 
     img {
@@ -298,6 +314,16 @@
       place-content: center;
       background: radial-gradient(circle at top, #4c1d95, #020617);
       box-shadow: 0 0 18px rgba(168, 85, 255, 0.6);
+      animation: spin-slow 12s linear infinite;
+    }
+
+    @keyframes spin-slow {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     .logo-mark span {
@@ -367,9 +393,7 @@
       width: 100%;
     }
 
-    .nav-cta {
-      display: none;
-    }
+    /* we removed nav-cta (address badge) */
 
     .badge-pill {
       font-size: var(--fs-xxs);
@@ -537,9 +561,10 @@
     .hero-bg-video {
       position: absolute;
       inset: 0;
-      z-index: -2;
+      z-index: -3;
       overflow: hidden;
       pointer-events: none;
+      mix-blend-mode: screen;
     }
 
     .hero-bg-video video {
@@ -547,17 +572,71 @@
       height: 100%;
       object-fit: cover;
       filter: saturate(1.4) contrast(1.1) brightness(0.75);
+      transform: scale(1.1);
     }
 
     .hero-overlay {
       position: absolute;
       inset: 0;
-      z-index: -1;
+      z-index: -2;
       background:
         radial-gradient(circle at top, rgba(248, 250, 252, 0.03), transparent 55%),
-        radial-gradient(circle at 10% 90%, rgba(236, 72, 153, 0.12), transparent 55%),
-        radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.18), transparent 55%),
-        linear-gradient(to bottom, rgba(3, 7, 18, 0.9), rgba(3, 7, 18, 0.6));
+        radial-gradient(circle at 10% 90%, rgba(236, 72, 153, 0.18), transparent 55%),
+        radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.22), transparent 55%),
+        linear-gradient(to bottom, rgba(3, 7, 18, 0.95), rgba(3, 7, 18, 0.7));
+    }
+
+    .hero-shape {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(12px);
+      opacity: 0.75;
+      mix-blend-mode: screen;
+      z-index: -1;
+      animation: blob-move 22s ease-in-out infinite alternate;
+    }
+
+    .hero-shape.shape-1 {
+      width: 320px;
+      height: 320px;
+      top: -80px;
+      left: -50px;
+      background: conic-gradient(
+        from 120deg,
+        #22d3ee,
+        #a855ff,
+        #f97316,
+        #22c55e,
+        #22d3ee
+      );
+    }
+
+    .hero-shape.shape-2 {
+      width: 260px;
+      height: 260px;
+      bottom: -60px;
+      right: -40px;
+      background: conic-gradient(
+        from 230deg,
+        #f97316,
+        #facc15,
+        #ec4899,
+        #22d3ee,
+        #f97316
+      );
+      animation-duration: 26s;
+    }
+
+    @keyframes blob-move {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+      50% {
+        transform: translate3d(40px, -20px, 0) scale(1.1) rotate(12deg);
+      }
+      100% {
+        transform: translate3d(-20px, 30px, 0) scale(1.05) rotate(-8deg);
+      }
     }
 
     .hero-grid {
@@ -584,6 +663,19 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
+      backdrop-filter: blur(18px);
+      animation: pill-in 0.8s ease-out forwards;
+    }
+
+    @keyframes pill-in {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .hero-pill-dot {
@@ -606,6 +698,19 @@
       text-transform: uppercase;
       color: var(--white);
       margin-bottom: 1.6rem;
+      animation: title-swipe 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: left center;
+    }
+
+    @keyframes title-swipe {
+      0% {
+        opacity: 0;
+        transform: translateX(-40px) skewX(-6deg) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) skewX(0deg) scale(1);
+      }
     }
 
     .hero-title span.highlight {
@@ -624,6 +729,19 @@
       max-width: 40rem;
       color: var(--white-dim);
       margin-bottom: 2.6rem;
+      animation: fade-up 0.9s ease-out 0.25s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fade-up {
+      0% {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero-actions {
@@ -631,6 +749,8 @@
       flex-wrap: wrap;
       gap: 1.4rem;
       align-items: center;
+      animation: fade-up 0.9s ease-out 0.35s forwards;
+      opacity: 0;
     }
 
     .btn-primary,
@@ -646,8 +766,11 @@
       gap: 0.8rem;
       overflow: hidden;
       isolation: isolate;
-      transition: transform var(--transition-fast),
-        box-shadow var(--transition-fast), background var(--transition-fast);
+      transition:
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        filter 0.25s ease;
     }
 
     .btn-primary {
@@ -660,35 +783,39 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(
-        circle at top left,
+      background: linear-gradient(
+        120deg,
         rgba(248, 250, 252, 0.45),
-        transparent 55%
+        transparent 60%
       );
       mix-blend-mode: screen;
       opacity: 0;
-      transition: opacity var(--transition-fast);
+      transform: translateX(-50%);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px) scale(1.01);
+      transform: translateY(-2px) scale(1.03) rotate(-0.7deg);
       box-shadow: 0 0 50px rgba(250, 204, 21, 0.9);
+      filter: saturate(1.2);
     }
 
     .btn-primary:hover::after {
       opacity: 1;
+      transform: translateX(30%);
     }
 
     .btn-ghost {
       border: 1px solid rgba(148, 163, 184, 0.9);
       background: rgba(15, 23, 42, 0.8);
       color: var(--white-dim);
+      backdrop-filter: blur(16px);
     }
 
     .btn-ghost:hover {
       border-color: var(--gold-light);
       background: radial-gradient(circle at top, #020617, #0b1120);
-      transform: translateY(-1px);
+      transform: translateY(-2px) scale(1.02) rotate(0.7deg);
     }
 
     .hero-fest-strip {
@@ -697,6 +824,8 @@
       gap: 1rem;
       align-items: center;
       margin-top: 3rem;
+      animation: fade-up 0.9s ease-out 0.45s forwards;
+      opacity: 0;
     }
 
     .hero-fest-pill {
@@ -732,6 +861,25 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 0 28px rgba(15, 23, 42, 0.8);
+      transform: perspective(800px) rotateX(6deg) rotateY(-6deg);
+      animation: card-drop 0.9s ease-out forwards;
+    }
+
+    .hero-meta-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes card-drop {
+      0% {
+        opacity: 0;
+        transform: perspective(800px) translateY(40px) rotateX(12deg)
+          rotateY(-12deg) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(800px) translateY(0) rotateX(6deg) rotateY(-6deg)
+          scale(1);
+      }
     }
 
     .hero-meta-card::before {
@@ -748,6 +896,12 @@
     .hero-meta-card-inner {
       position: relative;
       z-index: 1;
+    }
+
+    .hero-meta-card:hover {
+      transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-4px)
+        scale(1.02);
+      box-shadow: 0 0 40px rgba(129, 140, 248, 0.9);
     }
 
     .meta-label {
@@ -780,6 +934,19 @@
       border-radius: var(--radius-pill);
       border: 1px dashed rgba(250, 250, 250, 0.25);
       background: rgba(15, 23, 42, 0.95);
+      animation: float-badge 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes float-badge {
+      0% {
+        transform: translateY(0) translateX(0);
+      }
+      50% {
+        transform: translateY(-4px) translateX(3px);
+      }
+      100% {
+        transform: translateY(2px) translateX(-2px);
+      }
     }
 
     .hero-floating-badge span {
@@ -792,23 +959,24 @@
 
     [data-reveal] {
       opacity: 0;
-      transform: translateY(40px) scale(0.98);
+      transform: translateY(40px) scale(0.96) rotate(-1deg);
       transition:
         opacity 0.7s ease,
-        transform 0.7s ease;
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0s);
     }
 
     [data-reveal="left"] {
-      transform: translateX(-40px) scale(0.98);
+      transform: translateX(-40px) scale(0.96) rotate(-2deg);
     }
 
     [data-reveal="right"] {
-      transform: translateX(40px) scale(0.98);
+      transform: translateX(40px) scale(0.96) rotate(2deg);
     }
 
     .revealed {
       opacity: 1;
-      transform: translateX(0) translateY(0) scale(1);
+      transform: translateX(0) translateY(0) scale(1) rotate(0deg);
     }
 
     /*-----------------------------------*\
@@ -828,6 +996,12 @@
       box-shadow: 0 0 28px rgba(15, 23, 42, 0.9);
       position: relative;
       overflow: hidden;
+      transform-origin: center;
+      transition:
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s ease,
+        border-color 0.3s ease,
+        filter 0.3s ease;
     }
 
     .fest-card::before {
@@ -845,6 +1019,13 @@
     .fest-card-inner {
       position: relative;
       z-index: 1;
+    }
+
+    .fest-card:hover {
+      transform: rotate(-1.2deg) translateY(-8px) scale(1.02);
+      box-shadow: 0 24px 80px rgba(24, 24, 27, 0.85);
+      border-color: var(--gold-light);
+      filter: saturate(1.15);
     }
 
     .fest-label {
@@ -911,6 +1092,14 @@
       color: rgba(226, 232, 240, 0.9);
     }
 
+    .fest-btn {
+      margin-top: 1.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--fs-xs);
+    }
+
     /*-----------------------------------*\
       # BANDS & DJS
     \*-----------------------------------*/
@@ -939,6 +1128,11 @@
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
+      transform-origin: center;
+      transition:
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
     }
 
     .artist-pill span {
@@ -950,18 +1144,174 @@
       box-shadow: 0 0 16px rgba(250, 204, 21, 0.95);
     }
 
+    .artist-pill:hover {
+      transform: translateY(-4px) rotate(-3deg) scale(1.05);
+      border-color: var(--gold-light);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
+    }
+
     .bands-note {
       font-size: var(--fs-xs);
       color: rgba(226, 232, 240, 0.75);
     }
 
     /*-----------------------------------*\
-      # GALLERY
+      # GALLERY – CARDS PER FEST
     \*-----------------------------------*/
 
     .gallery-section {
       position: relative;
     }
+
+    .gallery-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2.4rem;
+      margin-top: 3.4rem;
+    }
+
+    .gallery-card {
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top, #020617, #020617f2);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s ease,
+        border-color 0.3s ease,
+        filter 0.3s ease;
+      position: relative;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-10px) rotate(-1deg) scale(1.02);
+      box-shadow: 0 32px 90px rgba(15, 23, 42, 1);
+      border-color: var(--gold-light);
+      filter: saturate(1.1);
+    }
+
+    .gallery-card-thumb {
+      position: relative;
+      overflow: hidden;
+      max-height: 220px;
+    }
+
+    .gallery-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.05);
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-card:hover .gallery-card-thumb img {
+      transform: scale(1.1);
+    }
+
+    .gallery-card-body {
+      padding: 1.8rem 1.8rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .gallery-card-title {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--white);
+    }
+
+    .gallery-card-title.gold {
+      color: var(--gold-light);
+    }
+    .gallery-card-title.blue {
+      color: var(--neon-blue);
+    }
+    .gallery-card-title.pink {
+      color: var(--neon-pink);
+    }
+
+    .gallery-card-tagline {
+      font-size: var(--fs-xs);
+      color: rgba(226, 232, 240, 0.8);
+    }
+
+    .gallery-card-meta {
+      font-size: var(--fs-xxs);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(148, 163, 184, 0.95);
+    }
+
+    .gallery-card-footer {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .gallery-card-chip {
+      padding: 0.3rem 1rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: var(--fs-xxs);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .gallery-card-btn {
+      font-size: var(--fs-xxs);
+      padding: 0.8rem 1.6rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(250, 250, 250, 0.3);
+      background: radial-gradient(circle at top, #0b1120, #020617);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      transition:
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .gallery-card-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.95);
+      border-color: var(--gold-light);
+      background: radial-gradient(circle at top, #020617, #020617);
+    }
+
+    /* Rotating gallery image */
+
+    .gallery-rotator {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .gallery-rotator.fade-out {
+      opacity: 0;
+      transform: scale(1.02);
+    }
+    .gallery-rotator.fade-in {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /*-----------------------------------*\
+      # ALL FEST MEDIA (GRID)
+    \*-----------------------------------*/
 
     .gallery-subnav {
       display: flex;
@@ -1006,10 +1356,10 @@
       cursor: pointer;
       transform-origin: center;
       transition:
-        transform var(--transition-med),
-        box-shadow var(--transition-med),
-        border-color var(--transition-med),
-        filter var(--transition-med);
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.45s ease,
+        border-color 0.35s ease,
+        filter 0.35s ease;
     }
 
     .gallery-item img,
@@ -1018,6 +1368,8 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transform: scale(1.02);
+      transition: transform 0.5s ease;
     }
 
     .gallery-item::after {
@@ -1038,18 +1390,20 @@
     }
 
     .gallery-item:hover {
-      transform: translateY(-4px) scale(1.02);
+      transform: translateY(-6px) scale(1.03) rotate(-1.5deg);
       border-color: var(--gold-light);
       box-shadow: 0 0 32px rgba(250, 204, 21, 0.65);
       filter: saturate(1.2);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
     }
 
     .gallery-item:hover::after {
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* Lightbox */
 
     .lightbox {
       position: fixed;
@@ -1117,6 +1471,16 @@
       background: radial-gradient(circle at top, #020617, #020617ee);
       overflow-x: auto;
       scrollbar-width: none;
+      animation: marquee-pulse 10s linear infinite alternate;
+    }
+
+    @keyframes marquee-pulse {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-10px);
+      }
     }
 
     .sponsor-strip::-webkit-scrollbar {
@@ -1151,6 +1515,16 @@
       border: 1px solid rgba(148, 163, 184, 0.4);
       padding: 2.4rem 2.2rem;
       box-shadow: 0 0 26px rgba(15, 23, 42, 0.8);
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s ease,
+        border-color 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-6px) rotate(0.8deg) scale(1.02);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.95);
+      border-color: var(--gold-light);
     }
 
     .contact-line {
@@ -1210,12 +1584,17 @@
       background: rgba(15, 23, 42, 0.95);
       color: var(--white);
       font-size: var(--fs-sm);
+      transition:
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
     }
 
     .field input:focus,
     .field textarea:focus {
       outline: 1px solid var(--gold-light);
       box-shadow: 0 0 14px rgba(250, 204, 21, 0.55);
+      transform: translateY(-1px);
     }
 
     .field textarea {
@@ -1277,12 +1656,6 @@
         display: flex;
       }
 
-      .nav-cta {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-
       .hamburger {
         display: none;
       }
@@ -1324,6 +1697,7 @@
       <a href="#novatos" data-nav-link>Novatos</a>
       <a href="#invicta" data-nav-link>Invicta</a>
       <a href="#bands" data-nav-link>Bands &amp; DJs</a>
+      <a href="#gallery-fests" data-nav-link>Fest Galleries</a>
       <a href="#gallery-all" data-nav-link>All Fest Media</a>
       <a href="#sponsors" data-nav-link>Sponsors</a>
       <a href="#contact" data-nav-link>Contact</a>
@@ -1351,13 +1725,11 @@
         <a href="#expression" class="nav-link" data-nav-main>Expression</a>
         <a href="#novatos" class="nav-link" data-nav-main>Novatos</a>
         <a href="#invicta" class="nav-link" data-nav-main>Invicta</a>
-        <a href="#gallery-all" class="nav-link" data-nav-main>Gallery</a>
+        <a href="#gallery-fests" class="nav-link" data-nav-main>Gallery</a>
         <a href="#contact" class="nav-link" data-nav-main>Contact</a>
       </nav>
 
-      <div class="nav-cta">
-        <span class="badge-pill">Singtam • Gangtok • Sikkim</span>
-      </div>
+      <!-- nav-cta removed (no address here) -->
 
       <button class="hamburger" id="hamburger" aria-label="Open menu">
         <span class="hamburger-line line-top"></span>
@@ -1370,9 +1742,7 @@
   <main>
     <!-- HERO -->
     <section class="hero" id="home">
-      <!-- Background Video -->
       <div class="hero-bg-video">
-        <!-- 🔔 Replace src with your actual party video file -->
         <video
           src="assets/video/hero-party.mp4"
           autoplay
@@ -1382,6 +1752,8 @@
         ></video>
       </div>
       <div class="hero-overlay"></div>
+      <div class="hero-shape shape-1"></div>
+      <div class="hero-shape shape-2"></div>
 
       <div class="container hero-grid">
         <div data-reveal="left">
@@ -1499,6 +1871,10 @@
                 Slogan: <strong>“Where culture meets creativity, and every
                   voice becomes art.”</strong>
               </p>
+
+              <a href="expression.html" class="btn-primary fest-btn">
+                View Fest
+              </a>
             </div>
           </article>
 
@@ -1530,6 +1906,10 @@
                 Slogan: <strong>“Where new journeys begin, and new talents
                   rise.”</strong>
               </p>
+
+              <a href="novatos.html" class="btn-primary fest-btn">
+                View Fest
+              </a>
             </div>
           </article>
 
@@ -1561,6 +1941,10 @@
                 Slogan: <strong>“Rise. Fight. Conquer. Invicta celebrates the
                   warrior in you.”</strong>
               </p>
+
+              <a href="invicta.html" class="btn-primary fest-btn">
+                View Fest
+              </a>
             </div>
           </article>
         </div>
@@ -1652,7 +2036,7 @@
       </div>
     </section>
 
-    <!-- GALLERY: PER-FEST -->
+    <!-- FEST GALLERY CARDS (3 CARDS – ONE PER FEST) -->
     <section class="section gallery-section" id="gallery-fests">
       <div class="container">
         <div class="text-center" data-reveal>
@@ -1660,127 +2044,98 @@
           <h2 class="section-title">Fest Galleries</h2>
           <div class="section-divider"></div>
           <p class="muted">
-            A dedicated corner for each fest — freeze frames from Expression,
-            Novatos, and Invicta that you’ll keep revisiting.
+            Each fest gets its own visual story — these dynamic cards shuffle
+            through highlights like a live memory reel.
           </p>
         </div>
 
-        <!-- Expression Gallery -->
-        <div style="margin-top: 4rem;" data-reveal="left">
-          <h3
-            style="
-              font-family: var(--font-display);
-              font-size: var(--fs-xl);
-              color: var(--gold-light);
-              margin-bottom: 1.6rem;
-              letter-spacing: 0.16em;
-              text-transform: uppercase;
-            "
-          >
-            Expression Gallery
-          </h3>
-          <div class="gallery-grid">
-            <!-- 🔔 Replace src paths with your real images -->
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/expression-1.jpg"
-            >
-              <img src="images/expression-1.jpg" alt="Expression performance 1" />
+        <div class="gallery-card-grid">
+          <!-- Expression Gallery Card -->
+          <article class="gallery-card" data-reveal="left">
+            <div class="gallery-card-thumb">
+              <img
+                class="gallery-rotator fade-in"
+                src="images/expression-1.jpg"
+                alt="Expression gallery highlight"
+                data-images="images/expression-1.jpg,images/expression-2.jpg,images/expression-3.jpg"
+              />
             </div>
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/expression-2.jpg"
-            >
-              <img src="images/expression-2.jpg" alt="Expression stage 2" />
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title gold">Expression</h3>
+              <p class="gallery-card-tagline">
+                Poetry mics, stage plays, scribbled notebooks, and dimly lit corners
+                filled with ideas — rotating glimpses from the cultural core of Exnovicta.
+              </p>
+              <p class="gallery-card-meta">
+                Auto-shuffling stills • Cultural &amp; Literary Moments
+              </p>
+              <div class="gallery-card-footer">
+                <span class="gallery-card-chip">Expression Gallery</span>
+                <a href="expression.html" class="gallery-card-btn">
+                  View Full Gallery
+                  <span>↗</span>
+                </a>
+              </div>
             </div>
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/expression-3.jpg"
-            >
-              <img src="images/expression-3.jpg" alt="Poetry slam" />
-            </div>
-          </div>
-        </div>
+          </article>
 
-        <!-- Novatos Gallery -->
-        <div style="margin-top: 4rem;" data-reveal="right">
-          <h3
-            style="
-              font-family: var(--font-display);
-              font-size: var(--fs-xl);
-              color: var(--neon-blue);
-              margin-bottom: 1.6rem;
-              letter-spacing: 0.16em;
-              text-transform: uppercase;
-            "
-          >
-            Novatos Gallery
-          </h3>
-          <div class="gallery-grid">
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/novatos-1.jpg"
-            >
-              <img src="images/novatos-1.jpg" alt="Novatos fresher walk" />
+          <!-- Novatos Gallery Card -->
+          <article class="gallery-card" data-reveal="up">
+            <div class="gallery-card-thumb">
+              <img
+                class="gallery-rotator fade-in"
+                src="images/novatos-1.jpg"
+                alt="Novatos gallery highlight"
+                data-images="images/novatos-1.jpg,images/novatos-2.jpg,images/novatos-3.jpg"
+              />
             </div>
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/novatos-2.jpg"
-            >
-              <img src="images/novatos-2.jpg" alt="Novatos crowd" />
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title blue">Novatos</h3>
+              <p class="gallery-card-tagline">
+                Freshers on the ramp, nervous smiles, wild cheering — a looping
+                slideshow of firsts that never stops.
+              </p>
+              <p class="gallery-card-meta">
+                Auto-shuffling stills • Freshers &amp; Talent
+              </p>
+              <div class="gallery-card-footer">
+                <span class="gallery-card-chip">Novatos Gallery</span>
+                <a href="novatos.html" class="gallery-card-btn">
+                  View Full Gallery
+                  <span>↗</span>
+                </a>
+              </div>
             </div>
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/novatos-3.jpg"
-            >
-              <img src="images/novatos-3.jpg" alt="Novatos talent show" />
-            </div>
-          </div>
-        </div>
+          </article>
 
-        <!-- Invicta Gallery -->
-        <div style="margin-top: 4rem;" data-reveal="left">
-          <h3
-            style="
-              font-family: var(--font-display);
-              font-size: var(--fs-xl);
-              color: var(--neon-pink);
-              margin-bottom: 1.6rem;
-              letter-spacing: 0.16em;
-              text-transform: uppercase;
-            "
-          >
-            Invicta Gallery
-          </h3>
-          <div class="gallery-grid">
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/invicta-1.jpg"
-            >
-              <img src="images/invicta-1.jpg" alt="Invicta match" />
+          <!-- Invicta Gallery Card -->
+          <article class="gallery-card" data-reveal="right">
+            <div class="gallery-card-thumb">
+              <img
+                class="gallery-rotator fade-in"
+                src="images/invicta-1.jpg"
+                alt="Invicta gallery highlight"
+                data-images="images/invicta-1.jpg,images/invicta-2.jpg,images/invicta-3.jpg"
+              />
             </div>
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/invicta-2.jpg"
-            >
-              <img src="images/invicta-2.jpg" alt="Invicta team huddle" />
+            <div class="gallery-card-body">
+              <h3 class="gallery-card-title pink">Invicta</h3>
+              <p class="gallery-card-tagline">
+                Sliding through game winners, team huddles, and trophy lifts —
+                Invicta’s competitive chaos on loop.
+              </p>
+              <p class="gallery-card-meta">
+                Auto-shuffling stills • Sports &amp; Esports
+              </p>
+              <div class="gallery-card-footer">
+                <span class="gallery-card-chip">Invicta Gallery</span>
+                <a href="invicta.html" class="gallery-card-btn">
+                  View Full Gallery
+                  <span>↗</span>
+                </a>
+              </div>
             </div>
-            <div
-              class="gallery-item"
-              data-type="image"
-              data-src="images/invicta-3.jpg"
-            >
-              <img src="images/invicta-3.jpg" alt="Invicta trophy" />
-            </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -1806,7 +2161,6 @@
         </div>
 
         <div class="gallery-grid" data-reveal="up">
-          <!-- image items -->
           <div
             class="gallery-item"
             data-type="image"
@@ -1829,13 +2183,11 @@
             <img src="images/all-3.jpg" alt="Stage lights and smoke" />
           </div>
 
-          <!-- video thumbnail -->
           <div
             class="gallery-item"
             data-type="video"
             data-src="assets/video/after-movie.mp4"
           >
-            <!-- 🔔 Replace with your aftermovie -->
             <img src="images/after-movie-thumb.jpg" alt="Aftermovie thumbnail" />
           </div>
 
@@ -1997,7 +2349,7 @@
     </div>
   </footer>
 
-  <!-- Ionicons (if you still want them somewhere) -->
+  <!-- Ionicons -->
   <script
     type="module"
     src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -2081,9 +2433,9 @@
       lastScrollY = currentY;
     });
 
-    // Active nav link highlight (basic)
+    // Active nav link highlight
     function updateActiveNav() {
-      const sections = ["home", "expression", "novatos", "invicta", "gallery-all", "contact"];
+      const sections = ["home", "expression", "novatos", "invicta", "gallery-fests", "gallery-all", "contact"];
       const scrollPos = window.scrollY + 140;
       let current = "home";
 
@@ -2106,8 +2458,13 @@
     window.addEventListener("scroll", updateActiveNav);
     updateActiveNav();
 
-    // SCROLL REVEAL
+    // SCROLL REVEAL with stagger
     const revealEls = document.querySelectorAll("[data-reveal]");
+    revealEls.forEach((el, index) => {
+      const delayBase = 0.05;
+      const delay = index * delayBase;
+      el.style.setProperty("--reveal-delay", `${delay}s`);
+    });
 
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
@@ -2124,7 +2481,6 @@
 
       revealEls.forEach((el) => observer.observe(el));
     } else {
-      // fallback
       revealEls.forEach((el) => el.classList.add("revealed"));
     }
 
@@ -2184,12 +2540,40 @@
       });
     }
 
-    // Optional ESC key close for lightbox & sidebar
+    // ESC close
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         if (lightbox.classList.contains("open")) closeLightbox();
         if (sidebar.classList.contains("open")) closeSidebar();
       }
+    });
+
+    // 🔁 GALLERY ROTATOR – every card image changes automatically
+    const rotatorIntervalMs = 4000; // change image every 4 seconds
+
+    const rotators = document.querySelectorAll(".gallery-rotator");
+    rotators.forEach((img) => {
+      const list = (img.dataset.images || "")
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      if (list.length <= 1) return;
+
+      let index = 0;
+
+      setInterval(() => {
+        index = (index + 1) % list.length;
+
+        img.classList.remove("fade-in");
+        img.classList.add("fade-out");
+
+        setTimeout(() => {
+          img.src = list[index];
+          img.classList.remove("fade-out");
+          img.classList.add("fade-in");
+        }, 250);
+      }, rotatorIntervalMs);
     });
   </script>
 </body>
